@@ -17,6 +17,7 @@ import { ProductViewed } from './_components/product-viewed';
 import { RelatedProducts } from './_components/related-products';
 import { Reviews } from './_components/reviews';
 import { getProduct } from './page-data';
+import Faqs from '~/components/product-faqs';
 
 interface Props {
   params: { slug: string; locale: LocaleType };
@@ -333,6 +334,17 @@ export default async function Product({ params: { locale, slug }, searchParams }
       <ProductDescription accordions={accordions} image={images[0]} product={formattedProduct} />
 
       <ProductSchema product={product} />
+
+      <div className='flex flex-col'>
+        <div className='@container'>
+          <h2 className="mx-auto flex w-full max-w-screen-lg my-4 text-xl font-bold md:text-2xl " style={{ color:'black', borderRadius:'999px'}} >{t('FAQ.heading')}</h2>
+              <div className="mx-auto md:w-2/3">
+                <Suspense fallback={t('loading')}>
+                <Faqs productId={product.entityId} />
+              </Suspense>
+              </div>
+        </div>
+      </div>
 
       <Suspense fallback={t('loading')}>
         <RelatedProducts productId={product.entityId} />
